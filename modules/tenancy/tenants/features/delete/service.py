@@ -1,14 +1,12 @@
-from modules.tenancy.tenants.models import Tenant
+from modules.tenancy.tenants.repositories.repository import Repository
 
-from .validator import CreateTenantValidator
+from .validator import DeleteValidator
 
 
-class CreateTenantService:
+class DeleteService:
 
     @staticmethod
-    def create_tenant(data):
-        CreateTenantValidator.validate(data)
+    def delete(tenant_id):
+        tenant = DeleteValidator.validate(tenant_id)
 
-        return Tenant.objects.create(
-            **data
-        )
+        Repository.delete(tenant)

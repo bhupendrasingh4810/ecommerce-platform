@@ -1,14 +1,8 @@
-from modules.tenancy.tenants.models import Tenant
-
-from .validator import CreateTenantValidator
+from .validator import GetValidator
 
 
-class CreateTenantService:
+class GetService:
 
     @staticmethod
-    def create_tenant(data):
-        CreateTenantValidator.validate(data)
-
-        return Tenant.objects.create(
-            **data
-        )
+    def get(tenant_id):
+        return GetValidator.validate(tenant_id)

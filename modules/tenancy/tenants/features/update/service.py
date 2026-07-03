@@ -1,14 +1,18 @@
-from modules.tenancy.tenants.models import Tenant
+from modules.tenancy.tenants.repositories.repository import Repository
 
-from .validator import CreateTenantValidator
+from .validator import UpdateValidator
 
 
-class CreateTenantService:
+class UpdateService:
 
     @staticmethod
-    def create_tenant(data):
-        CreateTenantValidator.validate(data)
+    def update(tenant_id, data):
+        tenant = UpdateValidator.validate(
+            tenant_id,
+            data,
+        )
 
-        return Tenant.objects.create(
-            **data
+        return Repository.update(
+            tenant,
+            **data,
         )

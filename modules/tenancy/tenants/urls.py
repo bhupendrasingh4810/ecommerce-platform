@@ -9,4 +9,16 @@ urlpatterns = [
         "",
         include("modules.tenancy.tenants.features.list.urls"),
     ),
+    path(
+        "",
+        include("modules.tenancy.tenants.features.get.urls"),
+    ),
+    path(
+        "",
+        include("modules.tenancy.tenants.features.update.urls"),
+    ),
+    path(
+        "",
+        include("modules.tenancy.tenants.features.delete.urls"),
+    ),
 ]

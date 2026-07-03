@@ -1,28 +1,15 @@
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import NotFound
 
-from modules.tenant.models import Tenant
+from modules.tenancy.tenants.repositories.repository import Repository
 
 
-class CreateTenantValidator:
+class GetValidator:
 
     @staticmethod
-    def validate(data):
-        if Tenant.objects.filter(slug=data["slug"]).exists():
-            raise ValidationError(
-                {
-                    "slug": [
-                        "Tenant slug already exists."
-                    ]
-                }
-            )
+    def validate(tenant_id):
+        tenant = Repository.get(id=tenant_id)
 
-        if Tenant.objects.filter(
-            primary_domain=data["primary_domain"]
-        ).exists():
-            raise ValidationError(
-                {
-                    "primary_domain": [
-                        "Primary domain already exists."
-                    ]
-                }
-            )
+        if tenant is None:
+            raise NotFound("Tenant not found.")
+
+        return tenant
